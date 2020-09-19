@@ -10,7 +10,15 @@ class Phrase {
   /**
    * Adds letter placeholders to the display when game starts.
    */
-  addPhraseToDisplay() {}
+  addPhraseToDisplay() {
+    // WORKS
+    for (let i = 0; i < this.phrase.length; i++) {
+      console.log(this.phrase[i]);
+    }
+
+    // DOES NOT WORK
+    this.phrase.forEach((letter) => console.log(letter));
+  }
 
   /**
    * Checks to see if selected letter matches a letter in the phrase.
