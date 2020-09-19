@@ -16,9 +16,17 @@ class Game {
   }
 
   /**
-   * Starts the game.
+   * Begins game by selecting a random phrase and displaying it to user
    */
-  startGame() {}
+  startGame() {
+    const overlay = document.getElementById('overlay');
+    overlay.style.display = 'none';
+
+    const randomPhrase = new Phrase(this.getRandomPhrase().phrase);
+    randomPhrase.addPhraseToDisplay();
+
+    this.activePhrase = randomPhrase;
+  }
 
   /**
    * Selects random phrase from phrases property.

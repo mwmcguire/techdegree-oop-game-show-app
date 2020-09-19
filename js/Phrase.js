@@ -11,13 +11,22 @@ class Phrase {
    * Adds letter placeholders to the display when game starts.
    */
   addPhraseToDisplay() {
-    // WORKS
-    for (let i = 0; i < this.phrase.length; i++) {
-      console.log(this.phrase[i]);
-    }
+    const phraseSection = document.getElementById('phrase');
+    const ul = phraseSection.children[0];
 
-    // DOES NOT WORK
-    this.phrase.forEach((letter) => console.log(letter));
+    for (let i = 0; i < this.phrase.length; i++) {
+      const li = document.createElement('li');
+      const letter = this.phrase[i];
+      li.textContent = letter;
+
+      if (letter === ' ') {
+        li.setAttribute('class', 'space');
+      } else {
+        li.setAttribute('class', 'hide letter ' + letter);
+      }
+
+      ul.appendChild(li);
+    }
   }
 
   /**
