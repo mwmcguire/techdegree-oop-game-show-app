@@ -43,17 +43,28 @@ class Game {
   handleInteraction() {}
 
   /**
-   * Remove a life from the scoreboard.
+   * Increases the value of the missed property
+   * Removes a life from the scoreboard
+   * Checks if player has remaining lives and ends game if player is out
    */
   removeLife() {}
 
   /**
-   * Check if player has revealed all letters in active phrase.
+   * Checks for winning move
+   * @return {boolean} True if game has been won, false if game wasn't won
    */
-  checkForWin() {}
+  checkForWin() {
+    const shownLetters = document.getElementsByClassName('show space');
+    if (shownLetters.length === this.activePhrase.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   /**
-   *
+   * Displays game over message
+   * @param {boolean} gameWon - Whether or not the user won the game
    */
-  gameOver() {}
+  gameOver(gameWon) {}
 }

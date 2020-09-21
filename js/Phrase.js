@@ -30,12 +30,29 @@ class Phrase {
   }
 
   /**
-   * Checks to see if selected letter matches a letter in the phrase.
+   * Checks if passed letter is in phrase
+   * @param (string) letter - Letter to check
    */
-  checkLetter() {}
+  checkLetter(letter) {
+    for (let i = 0; i < this.phrase.length; i++) {
+      if (letter === this.phrase[i]) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 
   /**
-   * Reveal letter(s) that matches the player's selection.
+   * Displays passed letter on screen after a match is found
+   * @param (string) letter - Letter to display
    */
-  showMatchedLetter() {}
+  showMatchedLetter(letter) {
+    const hiddenLetters = document.getElementsByClassName('hide');
+    for (let i = 0; i < hiddenLetters.length; ) {
+      if (hiddenLetters[i].textContent === letter) {
+        hiddenLetters[i].setAttribute('class', 'show letter ' + letter);
+      }
+    }
+  }
 }
