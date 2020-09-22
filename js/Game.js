@@ -60,7 +60,13 @@ class Game {
     }
 
     const tries = document.getElementsByClassName('tries');
-    const index = tries.indexOf();
+
+    for (let i = 0; i < tries.length; i++) {
+      if (tries[i].firstElementChild.getAttribute('src') === liveHeart) {
+        tries[i].firstElementChild.setAttribute('src', lostHeart);
+        return;
+      }
+    }
   }
 
   /**
@@ -77,22 +83,24 @@ class Game {
     }
 
     return true;
-
-    // const shownLetters = document.getElementsByClassName('show');
-    // const spaces = document.getElementsByClassName('space');
-    // let shownPhraseLength = shownLetters.length + spaces.length;
-    // let activePhraseLength = this.activePhrase.phrase.length;
-
-    // if (shownPhraseLength === activePhraseLength) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
   }
 
   /**
    * Displays game over message
    * @param {boolean} gameWon - Whether or not the user won the game
    */
-  gameOver(gameWon) {}
+  gameOver(gameWon) {
+    const overlay = document.getElementById('overlay');
+    const gameOverMsg = document.getElementById('game-over-message');
+
+    if (gameWon) {
+      gameOverMsg.textContent = 'You Won!';
+      overlay.setAttribute('class', 'win');
+    } else {
+      gameOverMsg.textContent = 'You Lost!';
+      overlay.setAttribute('class', 'lose');
+    }
+
+    overlay.style.display = '';
+  }
 }
