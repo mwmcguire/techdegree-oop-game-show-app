@@ -50,7 +50,6 @@ class Phrase {
     const hiddenLetters = document.getElementsByClassName('hide');
 
     for (let i = 0; i < hiddenLetters.length; i++) {
-      console.log(i + ' ' + hiddenLetters[i].className);
       if (hiddenLetters[i].className === 'hide letter ' + letter) {
         hiddenLetters[i].setAttribute('class', 'show letter ' + letter);
       }

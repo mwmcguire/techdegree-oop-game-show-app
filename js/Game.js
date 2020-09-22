@@ -68,12 +68,26 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    const shownLetters = document.getElementsByClassName('show space');
-    if (shownLetters.length === this.activePhrase.length) {
-      return true;
-    } else {
-      return false;
+    const letters = document.getElementsByClassName('letter');
+
+    for (let i = 0; i < letters.length; i++) {
+      if (letters[i].className === 'hide letter ' + letters[i].textContent) {
+        return false;
+      }
     }
+
+    return true;
+
+    // const shownLetters = document.getElementsByClassName('show');
+    // const spaces = document.getElementsByClassName('space');
+    // let shownPhraseLength = shownLetters.length + spaces.length;
+    // let activePhraseLength = this.activePhrase.phrase.length;
+
+    // if (shownPhraseLength === activePhraseLength) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 
   /**
