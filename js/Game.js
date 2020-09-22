@@ -26,6 +26,7 @@ class Game {
     randomPhrase.addPhraseToDisplay();
 
     this.activePhrase = randomPhrase;
+    console.log(this.activePhrase);
   }
 
   /**
@@ -47,7 +48,20 @@ class Game {
    * Removes a life from the scoreboard
    * Checks if player has remaining lives and ends game if player is out
    */
-  removeLife() {}
+  removeLife() {
+    this.missed += 1;
+    const liveHeart = 'images/liveHeart.png';
+    const lostHeart = 'images/lostHeart.png';
+
+    if (this.missed === 5) {
+      this.gameOver(true);
+    } else {
+      this.gameOver(false);
+    }
+
+    const tries = document.getElementsByClassName('tries');
+    const index = tries.indexOf();
+  }
 
   /**
    * Checks for winning move

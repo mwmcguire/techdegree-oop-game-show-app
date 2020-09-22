@@ -37,10 +37,9 @@ class Phrase {
     for (let i = 0; i < this.phrase.length; i++) {
       if (letter === this.phrase[i]) {
         return true;
-      } else {
-        return false;
       }
     }
+    return false;
   }
 
   /**
@@ -49,8 +48,10 @@ class Phrase {
    */
   showMatchedLetter(letter) {
     const hiddenLetters = document.getElementsByClassName('hide');
-    for (let i = 0; i < hiddenLetters.length; ) {
-      if (hiddenLetters[i].textContent === letter) {
+
+    for (let i = 0; i < hiddenLetters.length; i++) {
+      console.log(i + ' ' + hiddenLetters[i].className);
+      if (hiddenLetters[i].className === 'hide letter ' + letter) {
         hiddenLetters[i].setAttribute('class', 'show letter ' + letter);
       }
     }
