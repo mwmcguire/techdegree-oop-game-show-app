@@ -39,9 +39,12 @@ class Game {
   }
 
   /**
-   * Controls game logic.
+   * Handles onscreen keyboard button clicks
+   * @param (HTMLButtonElement) button - The clicked button element
    */
-  handleInteraction() {}
+  handleInteraction(button) {
+    console.log(button);
+  }
 
   /**
    * Increases the value of the missed property
@@ -50,15 +53,13 @@ class Game {
    */
   removeLife() {
     this.missed += 1;
-    const liveHeart = 'images/liveHeart.png';
-    const lostHeart = 'images/lostHeart.png';
 
     if (this.missed === 5) {
-      this.gameOver(true);
-    } else {
       this.gameOver(false);
     }
 
+    const liveHeart = 'images/liveHeart.png';
+    const lostHeart = 'images/lostHeart.png';
     const tries = document.getElementsByClassName('tries');
 
     for (let i = 0; i < tries.length; i++) {
