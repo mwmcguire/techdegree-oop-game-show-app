@@ -33,13 +33,19 @@ class Game {
    * Resets the game board
    */
   resetGame() {
+    console.log('reset game called');
     // Clears the active phrase
     this.activePhraseObj.removePhrase();
 
     // Enables onscreen keyboard buttons
-    const keys = document.getElementsByClassName('key');
-    for (let i = 0; i < keys.length; i++) {
-      keys[i].setAttribute('class', 'key');
+    const chosen = document.getElementsByClassName('chosen');
+    for (let i = 0; i < chosen.length; i++) {
+      chosen[i].setAttribute('class', 'key');
+    }
+
+    const wrong = document.getElementsByClassName('wrong');
+    for (let i = 0; i < wrong.length; i++) {
+      wrong[i].setAttribute('class', 'key');
     }
 
     //Resets heart images in the scoreboard
@@ -66,7 +72,7 @@ class Game {
    */
   handleInteraction(button) {
     const letter = button.textContent;
-    button.setAttribute('disabled', true);
+    // button.setAttribute('disabled', true);
 
     if (!this.activePhraseObj.checkLetter(letter)) {
       button.setAttribute('class', 'wrong');
@@ -74,10 +80,9 @@ class Game {
     } else if (this.activePhraseObj.checkLetter(letter)) {
       button.setAttribute('class', 'chosen');
       this.activePhraseObj.showMatchedLetter(letter);
-      this.checkForWin();
     }
 
-    if (this.checkForWin()) {
+    if (this.checkForWin() === true) {
       this.gameOver(true);
     }
   }
@@ -90,9 +95,9 @@ class Game {
   removeLife() {
     this.missed += 1;
 
-    if (this.missed === 5) {
-      this.gameOver(false);
-    }
+    // if (this.missed === 5) {
+    //   this.gameOver(false);
+    // }
 
     const liveHeart = 'images/liveHeart.png';
     const lostHeart = 'images/lostHeart.png';
@@ -111,6 +116,7 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
+    console.log('checkForWin called');
     const letters = document.getElementsByClassName('letter');
 
     for (let i = 0; i < letters.length; i++) {
@@ -133,13 +139,14 @@ class Game {
     if (gameWon) {
       gameOverMsg.textContent = 'Congratulations!  You won!';
       overlay.setAttribute('class', 'win');
-      this.resetGame();
+      console.log('won');
     } else {
       gameOverMsg.textContent = 'Sorry, better luck next time!';
       overlay.setAttribute('class', 'lose');
-      this.resetGame();
+      console.log('lost');
     }
 
     overlay.style.display = '';
+    this.resetGame();
   }
 }
