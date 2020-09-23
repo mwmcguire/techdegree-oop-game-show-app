@@ -30,6 +30,18 @@ class Phrase {
   }
 
   /**
+   * Remove the exisitng phrase from game board.
+   */
+  removePhrase() {
+    const phraseSection = document.getElementById('phrase');
+    const ul = phraseSection.children[0];
+
+    while (ul.firstChild) {
+      ul.removeChild(ul.firstChild);
+    }
+  }
+
+  /**
    * Checks if passed letter is in phrase
    * @param (string) letter - Letter to check
    */

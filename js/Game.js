@@ -12,7 +12,7 @@ class Game {
       { phrase: 'Spill the beans' },
       { phrase: 'Once in a blue moon' },
     ];
-    this.activePhrase = null;
+    this.activePhraseObj = null;
   }
 
   /**
@@ -25,8 +25,30 @@ class Game {
     const randomPhrase = new Phrase(this.getRandomPhrase().phrase);
     randomPhrase.addPhraseToDisplay();
 
-    this.activePhrase = randomPhrase;
-    console.log(this.activePhrase);
+    this.activePhraseObj = randomPhrase;
+    console.log(this.activePhraseObj);
+  }
+
+  /**
+   * Resets the game board
+   */
+  resetGame() {
+    // Clears the active phrase
+    this.activePhraseObj.removePhrase();
+
+    // Enables onscreen keyboard buttons
+    const keys = document.getElementsByClassName('key');
+    for (let i = 0; i < keys.length; i++) {
+      keys[i].setAttribute('class', 'key');
+    }
+
+    //Resets heart images in the scoreboard
+    const liveHeart = 'images/liveHeart.png';
+    const tries = document.getElementsByClassName('tries');
+
+    for (let i = 0; i < tries.length; i++) {
+      tries[i].firstElementChild.setAttribute('src', liveHeart);
+    }
   }
 
   /**
@@ -43,7 +65,21 @@ class Game {
    * @param (HTMLButtonElement) button - The clicked button element
    */
   handleInteraction(button) {
-    console.log(button);
+    const letter = button.textContent;
+    button.setAttribute('disabled', true);
+
+    if (!this.activePhraseObj.checkLetter(letter)) {
+      button.setAttribute('class', 'wrong');
+      this.removeLife();
+    } else if (this.activePhraseObj.checkLetter(letter)) {
+      button.setAttribute('class', 'chosen');
+      this.activePhraseObj.showMatchedLetter(letter);
+      this.checkForWin();
+    }
+
+    if (this.checkForWin()) {
+      this.gameOver(true);
+    }
   }
 
   /**
@@ -87,7 +123,7 @@ class Game {
   }
 
   /**
-   * Displays game over message
+   * Displays game over message and calls reset game method
    * @param {boolean} gameWon - Whether or not the user won the game
    */
   gameOver(gameWon) {
@@ -95,11 +131,13 @@ class Game {
     const gameOverMsg = document.getElementById('game-over-message');
 
     if (gameWon) {
-      gameOverMsg.textContent = 'You Won!';
+      gameOverMsg.textContent = 'Congratulations!  You won!';
       overlay.setAttribute('class', 'win');
+      this.resetGame();
     } else {
-      gameOverMsg.textContent = 'You Lost!';
+      gameOverMsg.textContent = 'Sorry, better luck next time!';
       overlay.setAttribute('class', 'lose');
+      this.resetGame();
     }
 
     overlay.style.display = '';
