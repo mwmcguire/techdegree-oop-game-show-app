@@ -116,7 +116,7 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    console.log('checkForWin called');
+    // console.log('checkForWin called');
     const letters = document.getElementsByClassName('letter');
 
     for (let i = 0; i < letters.length; i++) {
