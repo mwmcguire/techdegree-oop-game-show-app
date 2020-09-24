@@ -38,14 +38,9 @@ class Game {
     this.activePhraseObj.removePhrase();
 
     // Enables onscreen keyboard buttons
-    const chosen = document.getElementsByClassName('chosen');
-    for (let i = 0; i < chosen.length; i++) {
-      chosen[i].setAttribute('class', 'key');
-    }
-
-    const wrong = document.getElementsByClassName('wrong');
-    for (let i = 0; i < wrong.length; i++) {
-      wrong[i].setAttribute('class', 'key');
+    const keys = document.getElementsByClassName('key');
+    for (let i = 0; i < keys.length; i++) {
+      keys[i].setAttribute('class', 'key');
     }
 
     //Resets heart images in the scoreboard
@@ -62,7 +57,7 @@ class Game {
    * @return  {Object}  Phrase object chosen to be used
    */
   getRandomPhrase() {
-    const num = Math.floor(Math.random() * 4) + 1;
+    const num = Math.floor(Math.random() * this.phrases.length);
     return this.phrases[num];
   }
 
@@ -74,16 +69,16 @@ class Game {
     const letter = button.textContent;
     // button.setAttribute('disabled', true);
 
-    if (!this.activePhraseObj.checkLetter(letter)) {
-      button.setAttribute('class', 'wrong');
-      this.removeLife();
-    } else if (this.activePhraseObj.checkLetter(letter)) {
-      button.setAttribute('class', 'chosen');
+    if (this.activePhraseObj.checkLetter(letter)) {
+      button.classList.add('chosen');
       this.activePhraseObj.showMatchedLetter(letter);
-    }
 
-    if (this.checkForWin() === true) {
-      this.gameOver(true);
+      if (this.checkForWin()) {
+        this.gameOver(true);
+      }
+    } else {
+      button.classList.add('wrong');
+      this.removeLife();
     }
   }
 
@@ -95,10 +90,6 @@ class Game {
   removeLife() {
     this.missed += 1;
 
-    // if (this.missed === 5) {
-    //   this.gameOver(false);
-    // }
-
     const liveHeart = 'images/liveHeart.png';
     const lostHeart = 'images/lostHeart.png';
     const tries = document.getElementsByClassName('tries');
@@ -106,6 +97,10 @@ class Game {
     for (let i = 0; i < tries.length; i++) {
       if (tries[i].firstElementChild.getAttribute('src') === liveHeart) {
         tries[i].firstElementChild.setAttribute('src', lostHeart);
+
+        if (this.missed === 5) {
+          this.gameOver(false);
+        }
         return;
       }
     }
@@ -116,7 +111,7 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    // console.log('checkForWin called');
+    console.log('checkForWin called');
     const letters = document.getElementsByClassName('letter');
 
     for (let i = 0; i < letters.length; i++) {
@@ -133,8 +128,10 @@ class Game {
    * @param {boolean} gameWon - Whether or not the user won the game
    */
   gameOver(gameWon) {
+    console.log('gameOver called');
     const overlay = document.getElementById('overlay');
     const gameOverMsg = document.getElementById('game-over-message');
+    console.log('gameWon: ' + gameWon);
 
     if (gameWon) {
       gameOverMsg.textContent = 'Congratulations!  You won!';

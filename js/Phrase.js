@@ -33,6 +33,7 @@ class Phrase {
    * Remove the exisitng phrase from game board.
    */
   removePhrase() {
+    console.log('removePhrase called');
     const phraseSection = document.getElementById('phrase');
     const ul = phraseSection.children[0];
 
@@ -59,13 +60,10 @@ class Phrase {
    * @param (string) letter - Letter to display
    */
   showMatchedLetter(letter) {
-    const hiddenLetters = document.getElementsByClassName('hide');
+    const hiddenLetters = document.getElementsByClassName(`${letter}`);
 
     for (let i = 0; i < hiddenLetters.length; i++) {
-      console.log(i + ' ' + hiddenLetters[i].className);
-      if (hiddenLetters[i].className === 'hide letter ' + letter) {
-        hiddenLetters[i].setAttribute('class', 'show letter ' + letter);
-      }
+      hiddenLetters[i].setAttribute('class', 'show letter ' + letter);
     }
   }
 }
