@@ -33,7 +33,6 @@ class Phrase {
    * Remove the exisitng phrase from game board.
    */
   removePhrase() {
-    console.log('removePhrase called');
     const phraseSection = document.getElementById('phrase');
     const ul = phraseSection.children[0];
 

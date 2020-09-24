@@ -26,14 +26,12 @@ class Game {
     randomPhrase.addPhraseToDisplay();
 
     this.activePhraseObj = randomPhrase;
-    console.log(this.activePhraseObj);
   }
 
   /**
    * Resets the game board
    */
   resetGame() {
-    console.log('reset game called');
     // Clears the active phrase
     this.activePhraseObj.removePhrase();
 
@@ -41,6 +39,7 @@ class Game {
     const keys = document.getElementsByClassName('key');
     for (let i = 0; i < keys.length; i++) {
       keys[i].setAttribute('class', 'key');
+      keys[i].disabled = false;
     }
 
     //Resets heart images in the scoreboard
@@ -67,7 +66,7 @@ class Game {
    */
   handleInteraction(button) {
     const letter = button.textContent;
-    // button.setAttribute('disabled', true);
+    button.disabled = true;
 
     if (this.activePhraseObj.checkLetter(letter)) {
       button.classList.add('chosen');
@@ -111,7 +110,6 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    console.log('checkForWin called');
     const letters = document.getElementsByClassName('letter');
 
     for (let i = 0; i < letters.length; i++) {
@@ -128,19 +126,15 @@ class Game {
    * @param {boolean} gameWon - Whether or not the user won the game
    */
   gameOver(gameWon) {
-    console.log('gameOver called');
     const overlay = document.getElementById('overlay');
     const gameOverMsg = document.getElementById('game-over-message');
-    console.log('gameWon: ' + gameWon);
 
     if (gameWon) {
       gameOverMsg.textContent = 'Congratulations!  You won!';
       overlay.setAttribute('class', 'win');
-      console.log('won');
     } else {
       gameOverMsg.textContent = 'Sorry, better luck next time!';
       overlay.setAttribute('class', 'lose');
-      console.log('lost');
     }
 
     overlay.style.display = '';
